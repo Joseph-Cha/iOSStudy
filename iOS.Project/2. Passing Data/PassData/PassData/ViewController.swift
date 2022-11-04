@@ -2,6 +2,7 @@
 // 6가지
 
 // 1. instance property
+// 2. segue -> 하나의 스토리 보드에 여러 ViewController가 있을 때 사용
 
 import UIKit
 
@@ -12,7 +13,17 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-
+    
+    // prepare를 사용하면 연결된 segue로 이동할 때 호출이 된다.
+    // 따라서 원하는 segue를 찾아서 해당 viewCotroller의 속성 값에 값을 할당할 수 있다.
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueDetail" {
+            if let detailVC = segue.destination as? SegueDetailViewController {
+                detailVC.dataString = "adbc"
+            }
+        }
+    }
+    
     @IBAction func moveToDetail(_ sender: Any) {
         let detailVC = DetailViewController(nibName: "DetailViewController", bundle: nil)
         detailVC.someString = "aaa 데이터"
