@@ -18,6 +18,7 @@
 		ABC56C862912AE14000A0F31 /* PassDataUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC56C852912AE14000A0F31 /* PassDataUITestsLaunchTests.swift */; };
 		ABC56C942912AEBB000A0F31 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC56C922912AEBB000A0F31 /* DetailViewController.swift */; };
 		ABC56C952912AEBB000A0F31 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABC56C932912AEBB000A0F31 /* DetailViewController.xib */; };
+		ABC56C9729155A41000A0F31 /* SegueDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC56C9629155A41000A0F31 /* SegueDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		ABC56C852912AE14000A0F31 /* PassDataUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassDataUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		ABC56C922912AEBB000A0F31 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		ABC56C932912AEBB000A0F31 /* DetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
+		ABC56C9629155A41000A0F31 /* SegueDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				ABC56C6B2912AE13000A0F31 /* Assets.xcassets */,
 				ABC56C6D2912AE13000A0F31 /* LaunchScreen.storyboard */,
 				ABC56C702912AE13000A0F31 /* Info.plist */,
+				ABC56C9629155A41000A0F31 /* SegueDetailViewController.swift */,
 			);
 			path = PassData;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 			files = (
 				ABC56C672912AE13000A0F31 /* ViewController.swift in Sources */,
 				ABC56C632912AE13000A0F31 /* AppDelegate.swift in Sources */,
+				ABC56C9729155A41000A0F31 /* SegueDetailViewController.swift in Sources */,
 				ABC56C652912AE13000A0F31 /* SceneDelegate.swift in Sources */,
 				ABC56C942912AEBB000A0F31 /* DetailViewController.swift in Sources */,
 			);
