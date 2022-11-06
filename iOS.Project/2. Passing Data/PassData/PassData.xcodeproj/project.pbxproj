@@ -19,6 +19,8 @@
 		ABC56C942912AEBB000A0F31 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC56C922912AEBB000A0F31 /* DetailViewController.swift */; };
 		ABC56C952912AEBB000A0F31 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABC56C932912AEBB000A0F31 /* DetailViewController.xib */; };
 		ABC56C9729155A41000A0F31 /* SegueDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC56C9629155A41000A0F31 /* SegueDetailViewController.swift */; };
+		ABC56C9A2917F234000A0F31 /* InstanceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC56C982917F234000A0F31 /* InstanceDetailViewController.swift */; };
+		ABC56C9B2917F234000A0F31 /* InstanceDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABC56C992917F234000A0F31 /* InstanceDetailViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,8 @@
 		ABC56C922912AEBB000A0F31 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		ABC56C932912AEBB000A0F31 /* DetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
 		ABC56C9629155A41000A0F31 /* SegueDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueDetailViewController.swift; sourceTree = "<group>"; };
+		ABC56C982917F234000A0F31 /* InstanceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceDetailViewController.swift; sourceTree = "<group>"; };
+		ABC56C992917F234000A0F31 /* InstanceDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstanceDetailViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +114,8 @@
 				ABC56C932912AEBB000A0F31 /* DetailViewController.xib */,
 				ABC56C642912AE13000A0F31 /* SceneDelegate.swift */,
 				ABC56C662912AE13000A0F31 /* ViewController.swift */,
+				ABC56C982917F234000A0F31 /* InstanceDetailViewController.swift */,
+				ABC56C992917F234000A0F31 /* InstanceDetailViewController.xib */,
 				ABC56C682912AE13000A0F31 /* Main.storyboard */,
 				ABC56C6B2912AE13000A0F31 /* Assets.xcassets */,
 				ABC56C6D2912AE13000A0F31 /* LaunchScreen.storyboard */,
@@ -243,6 +249,7 @@
 				ABC56C6F2912AE13000A0F31 /* LaunchScreen.storyboard in Resources */,
 				ABC56C6C2912AE13000A0F31 /* Assets.xcassets in Resources */,
 				ABC56C6A2912AE13000A0F31 /* Main.storyboard in Resources */,
+				ABC56C9B2917F234000A0F31 /* InstanceDetailViewController.xib in Resources */,
 				ABC56C952912AEBB000A0F31 /* DetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -272,6 +279,7 @@
 				ABC56C632912AE13000A0F31 /* AppDelegate.swift in Sources */,
 				ABC56C9729155A41000A0F31 /* SegueDetailViewController.swift in Sources */,
 				ABC56C652912AE13000A0F31 /* SceneDelegate.swift in Sources */,
+				ABC56C9A2917F234000A0F31 /* InstanceDetailViewController.swift in Sources */,
 				ABC56C942912AEBB000A0F31 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

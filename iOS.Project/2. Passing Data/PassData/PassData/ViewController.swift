@@ -3,6 +3,7 @@
 
 // 1. instance property
 // 2. segue -> 하나의 스토리 보드에 여러 ViewController가 있을 때 사용
+// 3. instance을 통으로 넘기기 
 
 import UIKit
 
@@ -14,6 +15,8 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    @IBOutlet weak var dataLabel: UILabel!
+
     // prepare를 사용하면 연결된 segue로 이동할 때 호출이 된다.
     // 따라서 원하는 segue를 찾아서 해당 viewCotroller의 속성 값에 값을 할당할 수 있다.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -37,6 +40,15 @@ class ViewController: UIViewController {
         
         // 보통 이런 방식으로 ui의 속성 값을 할당하지는 않는다.
         detailVC.someLabel.text = "bb"
+        
+    }
+    
+    @IBAction func moveToInstance(_ sender: Any) {
+        let detailVC = InstanceDetailViewController(nibName: "InstanceDetailViewController", bundle: nil)
+        
+        detailVC.mainVC = self
+        
+        self.present(detailVC, animated: true, completion: nil)
         
     }
     
