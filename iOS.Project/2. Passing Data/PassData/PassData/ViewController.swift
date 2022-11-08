@@ -3,7 +3,8 @@
 
 // 1. instance property
 // 2. segue -> 하나의 스토리 보드에 여러 ViewController가 있을 때 사용
-// 3. instance을 통으로 넘기기 
+// 3. instance을 통으로 넘기기
+// 4. delegate (delegation) pattern 대리 위임 대신
 
 import UIKit
 
@@ -45,12 +46,24 @@ class ViewController: UIViewController {
     
     @IBAction func moveToInstance(_ sender: Any) {
         let detailVC = InstanceDetailViewController(nibName: "InstanceDetailViewController", bundle: nil)
-        
         detailVC.mainVC = self
-        
         self.present(detailVC, animated: true, completion: nil)
         
     }
     
+    @IBAction func moveToDelegate(_ sender: Any) {
+        let detailVC = DelegateDetailViewController(nibName: "DelegateDetailViewController", bundle: nil)
+        
+        // 나 자신을 통으로 넘기는 것이 아니라 extension으로 구현한 구현부만 넘기게 된다.
+        // 즉 DelegateDetailViewControllerDelegate 타입만 넘기는 것이다.
+        detailVC.delegate = self
+        self.present(detailVC, animated: true, completion: nil)
+    }
+    
 }
 
+extension ViewController: DelegateDetailViewControllerDelegate {
+    func passString(string: String) {
+        self.dataLabel.text = string
+    }
+}
