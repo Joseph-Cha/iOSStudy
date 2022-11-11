@@ -60,6 +60,8 @@ class ViewController: UIViewController {
         self.present(detailVC, animated: true, completion: nil)
     }
     
+    @IBAction func moveToClosure(_ sender: Any) {
+    }
 }
 
 extension ViewController: DelegateDetailViewControllerDelegate {

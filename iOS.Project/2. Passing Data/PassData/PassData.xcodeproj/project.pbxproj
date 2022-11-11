@@ -23,6 +23,8 @@
 		ABC56C9B2917F234000A0F31 /* InstanceDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABC56C992917F234000A0F31 /* InstanceDetailViewController.xib */; };
 		ABC56C9E291A8C68000A0F31 /* DelegateDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC56C9C291A8C68000A0F31 /* DelegateDetailViewController.swift */; };
 		ABC56C9F291A8C68000A0F31 /* DelegateDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABC56C9D291A8C68000A0F31 /* DelegateDetailViewController.xib */; };
+		ABC56CA2291D32C5000A0F31 /* ClosureDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC56CA0291D32C5000A0F31 /* ClosureDetailViewController.swift */; };
+		ABC56CA3291D32C5000A0F31 /* ClosureDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABC56CA1291D32C5000A0F31 /* ClosureDetailViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,8 @@
 		ABC56C992917F234000A0F31 /* InstanceDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstanceDetailViewController.xib; sourceTree = "<group>"; };
 		ABC56C9C291A8C68000A0F31 /* DelegateDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateDetailViewController.swift; sourceTree = "<group>"; };
 		ABC56C9D291A8C68000A0F31 /* DelegateDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DelegateDetailViewController.xib; sourceTree = "<group>"; };
+		ABC56CA0291D32C5000A0F31 /* ClosureDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureDetailViewController.swift; sourceTree = "<group>"; };
+		ABC56CA1291D32C5000A0F31 /* ClosureDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClosureDetailViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +131,8 @@
 				ABC56C6D2912AE13000A0F31 /* LaunchScreen.storyboard */,
 				ABC56C702912AE13000A0F31 /* Info.plist */,
 				ABC56C9629155A41000A0F31 /* SegueDetailViewController.swift */,
+				ABC56CA0291D32C5000A0F31 /* ClosureDetailViewController.swift */,
+				ABC56CA1291D32C5000A0F31 /* ClosureDetailViewController.xib */,
 			);
 			path = PassData;
 			sourceTree = "<group>";
@@ -252,6 +258,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABC56CA3291D32C5000A0F31 /* ClosureDetailViewController.xib in Resources */,
 				ABC56C9F291A8C68000A0F31 /* DelegateDetailViewController.xib in Resources */,
 				ABC56C6F2912AE13000A0F31 /* LaunchScreen.storyboard in Resources */,
 				ABC56C6C2912AE13000A0F31 /* Assets.xcassets in Resources */,
@@ -283,6 +290,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ABC56C672912AE13000A0F31 /* ViewController.swift in Sources */,
+				ABC56CA2291D32C5000A0F31 /* ClosureDetailViewController.swift in Sources */,
 				ABC56C9E291A8C68000A0F31 /* DelegateDetailViewController.swift in Sources */,
 				ABC56C632912AE13000A0F31 /* AppDelegate.swift in Sources */,
 				ABC56C9729155A41000A0F31 /* SegueDetailViewController.swift in Sources */,
