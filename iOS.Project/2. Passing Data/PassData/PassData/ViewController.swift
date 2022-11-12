@@ -61,6 +61,13 @@ class ViewController: UIViewController {
     }
     
     @IBAction func moveToClosure(_ sender: Any) {
+        let detailVC = ClosureDetailViewController(nibName: "ClosureDetailViewController", bundle: nil)
+        
+        detailVC.myClosure = { str in
+            self.dataLabel.text = str
+        }
+        
+        self.present(detailVC, animated: true)
     }
 }
 
