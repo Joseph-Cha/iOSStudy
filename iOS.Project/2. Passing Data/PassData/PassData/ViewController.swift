@@ -5,6 +5,8 @@
 // 2. segue -> 하나의 스토리 보드에 여러 ViewController가 있을 때 사용
 // 3. instance을 통으로 넘기기
 // 4. delegate (delegation) pattern 대리 위임 대신
+// 5. closure
+// 6. Notification -> no dependency way
 
 import UIKit
 
@@ -13,8 +15,36 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        let notificationName = Notification.Name("sendSomeString")
+        // Don't call 'addObserver' twtice
+        NotificationCenter.default.addObserver(self, selector: #selector(showSomeString), name: notificationName, object: nil)
+        
+        // add observer before(will) showing keyboard
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardDidShowNotification, object: nil)
+        
+        // add observer show keyboard completed
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
+        
+        NotificationCenter.default.removeObserver(self, name: notificationName, object: nil)
+        
     }
+    
+    @objc func keyboardWillShow() {
+        print("will show")
+    }
+    
+    @objc func keyboardDidShow() {
+        print("did show")
+    }
+    
+    @objc func showSomeString(notification: Notification) {
+        if let str = notification.userInfo?["str"] as? String {
+            self.dataLabel.text = str;
+        }
+        
+    }
+    
     
     @IBOutlet weak var dataLabel: UILabel!
 
@@ -69,6 +99,12 @@ class ViewController: UIViewController {
         
         self.present(detailVC, animated: true)
     }
+    
+    @IBAction func moveToNoti(_ sender: Any) {
+        let detailVC = NotiDetailViewController(nibName: "NotiDetailViewController", bundle: nil)
+        self.present(detailVC, animated: true, completion: nil)
+    }
+    
 }
 
 extension ViewController: DelegateDetailViewControllerDelegate {
