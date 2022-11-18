@@ -111,15 +111,24 @@ class ViewController: UIViewController {
         let queue1 = DispatchQueue(label: "q1")
         let queue2 = DispatchQueue(label: "q2")
         let queue3 = DispatchQueue(label: "q3")
-
-        queue1.async(group: dispatchGroup) {
-            for index in 0..<10 {
-                Thread.sleep(forTimeInterval: 0.2)
-                print(index)
+        
+        // DispatchQoS.backgroud: the lowest priority
+        // DispatchQoS.userInteractive: the highest priority.
+        
+        queue1.async(group: dispatchGroup, qos: .background) {
+            // set to start job manualy
+            dispatchGroup.enter()
+            DispatchQueue.global().async {
+                for index in 0..<10 {
+                    Thread.sleep(forTimeInterval: 0.2)
+                    print(index)
+                }
+                // set to end job manualy
+                dispatchGroup.leave()
             }
         }
         
-        queue2.async(group: dispatchGroup) {
+        queue2.async(group: dispatchGroup, qos: .userInteractive) {
             for index in 10..<20 {
                 Thread.sleep(forTimeInterval: 0.2)
                 print(index)
@@ -138,5 +147,42 @@ class ViewController: UIViewController {
             print("end")
         }
     }
+    
+    @IBAction func action3(_ sender: Any) {
+        
+        // don't use that(main thread do not run on main thread).
+        DispatchQueue.main.sync {
+            
+        }
+        
+        // create multi threads
+        let queue1 = DispatchQueue(label: "q1")
+        let queue2 = DispatchQueue(label: "q2")
+        
+        queue1.sync {
+            for index in 0..<10 {
+                Thread.sleep(forTimeInterval: 0.2)
+                print(index)
+            }
+            // deadlock -> waiting for each other jobs until the other's.
+            // previous job is not complected. so this job waits for previous job.
+            // next job will run sync. so when all queue1 thread's job finished, next job will be excuted by queue1 thread.
+            // that is why occur dead lock.
+            queue1.sync {
+                for index in 0..<10 {
+                    Thread.sleep(forTimeInterval: 0.2)
+                    print(index)
+                }
+            }
+        }
+        
+        queue2.sync {
+            for index in 10..<20 {
+                Thread.sleep(forTimeInterval: 0.2)
+                print(index)
+            }
+        }
+        
+        print("aaaa")
+    }
 }
-

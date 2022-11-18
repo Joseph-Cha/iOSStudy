@@ -39,6 +39,9 @@
                                         <rect key="frame" x="0.0" y="166" width="67" height="31"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <connections>
+                                            <action selector="action3:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hpm-26-QVx"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
