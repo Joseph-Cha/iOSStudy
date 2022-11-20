@@ -13,6 +13,8 @@
 		AB0EA6F72929068700FD5448 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB0EA6F52929068700FD5448 /* Main.storyboard */; };
 		AB0EA6F92929068800FD5448 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB0EA6F82929068800FD5448 /* Assets.xcassets */; };
 		AB0EA6FC2929068800FD5448 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB0EA6FA2929068800FD5448 /* LaunchScreen.storyboard */; };
+		AB89739F292A4E3F00865A3C /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB89739D292A4E3F00865A3C /* ProfileCell.swift */; };
+		AB8973A2292A586000865A3C /* ProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB8973A1292A586000865A3C /* ProfileCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		AB0EA6F82929068800FD5448 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB0EA6FB2929068800FD5448 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AB0EA6FD2929068800FD5448 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB89739D292A4E3F00865A3C /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
+		AB8973A1292A586000865A3C /* ProfileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +63,8 @@
 				AB0EA6EF2929068700FD5448 /* AppDelegate.swift */,
 				AB0EA6F12929068700FD5448 /* SceneDelegate.swift */,
 				AB0EA6F32929068700FD5448 /* ViewController.swift */,
+				AB89739D292A4E3F00865A3C /* ProfileCell.swift */,
+				AB8973A1292A586000865A3C /* ProfileCell.xib */,
 				AB0EA6F52929068700FD5448 /* Main.storyboard */,
 				AB0EA6F82929068800FD5448 /* Assets.xcassets */,
 				AB0EA6FA2929068800FD5448 /* LaunchScreen.storyboard */,
@@ -126,6 +132,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB0EA6FC2929068800FD5448 /* LaunchScreen.storyboard in Resources */,
+				AB8973A2292A586000865A3C /* ProfileCell.xib in Resources */,
 				AB0EA6F92929068800FD5448 /* Assets.xcassets in Resources */,
 				AB0EA6F72929068700FD5448 /* Main.storyboard in Resources */,
 			);
@@ -139,6 +146,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB0EA6F42929068700FD5448 /* ViewController.swift in Sources */,
+				AB89739F292A4E3F00865A3C /* ProfileCell.swift in Sources */,
 				AB0EA6F02929068700FD5448 /* AppDelegate.swift in Sources */,
 				AB0EA6F22929068700FD5448 /* SceneDelegate.swift in Sources */,
 			);
