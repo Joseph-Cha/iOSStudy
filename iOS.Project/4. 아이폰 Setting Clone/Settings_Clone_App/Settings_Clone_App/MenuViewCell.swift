@@ -1,5 +1,5 @@
 //
-//  ProfileCell.swift
+//  MenuViewCell.swift
 //  Settings_Clone_App
 //
 //  Created by 차동훈 on 2022/11/21.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileCell: UITableViewCell {
+class MenuViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
