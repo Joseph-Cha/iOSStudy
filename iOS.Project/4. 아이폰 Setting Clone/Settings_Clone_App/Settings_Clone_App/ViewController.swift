@@ -39,6 +39,12 @@ class ViewController: UIViewController {
         settingTableView.register(UINib(nibName: "ProfileViewCell", bundle: nil), forCellReuseIdentifier: "ProfileViewCell")
         settingTableView.register(UINib(nibName: "MenuViewCell", bundle: nil), forCellReuseIdentifier: "MenuViewCell")
         
+        // 네비게이션 컨트롤로의 타이틀 값 설정
+        self.title = "Settings"
+        // 상단 bar 영역
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.view.backgroundColor = UIColor(white: 245/255, alpha: 1)
+        
         makeData()
     }
 }
