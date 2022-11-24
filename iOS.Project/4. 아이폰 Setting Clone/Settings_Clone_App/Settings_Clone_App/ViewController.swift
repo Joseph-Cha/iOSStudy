@@ -13,8 +13,6 @@ class ViewController: UIViewController {
     // [[]]: 2차원 배열
     var settingModel = [[SettingModel]]()
     
-
-    
     @IBOutlet weak var settingTableView: UITableView!
 
     func makeData() {
@@ -27,6 +25,12 @@ class ViewController: UIViewController {
             SettingModel(leftImageName: "person.fill", menuIttile: "Accessibility", subTitle: nil, rightImageName: "chevron.right"),
             SettingModel(leftImageName: "hand.raised.fill", menuIttile: "Privacy", subTitle: nil, rightImageName: "chevron.right")]
         )
+    }
+    
+    // like OnEnable of Unity MonoBehaviour
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     override func viewDidLoad() {
@@ -42,7 +46,6 @@ class ViewController: UIViewController {
         // 네비게이션 컨트롤로의 타이틀 값 설정
         self.title = "Settings"
         // 상단 bar 영역
-        self.navigationController?.navigationBar.prefersLargeTitles = true
         self.view.backgroundColor = UIColor(white: 245/255, alpha: 1)
         
         makeData()
@@ -61,6 +64,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // 현재 세션의 갯수만큼 셀이 출력 될 수 있도록
         return settingModel[section].count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 1 && indexPath.row == 0 {
+            if let generalVC = UIStoryboard(name: "GeneralViewController", bundle: nil).instantiateViewController(identifier: "GeneralViewController") as? GeneralViewController {
+                self.navigationController?.pushViewController(generalVC, animated: true)
+            }
+        }
     }
     
     // 현재 테이블에서 선택된 열(cell) 데이터
