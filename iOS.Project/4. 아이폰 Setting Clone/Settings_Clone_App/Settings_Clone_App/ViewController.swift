@@ -66,6 +66,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         return settingModel[section].count
     }
     
+    
+    // 테이블 뷰 셀을 클릭했을 때 동작 정의
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 && indexPath.row == 0 {
             if let generalVC = UIStoryboard(name: "GeneralViewController", bundle: nil).instantiateViewController(identifier: "GeneralViewController") as? GeneralViewController {
