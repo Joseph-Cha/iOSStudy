@@ -18,22 +18,43 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K2S-Yk-fD1">
-                    <rect key="frame" x="20" y="67" width="67" height="31"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K2S-Yk-fD1">
+                    <rect key="frame" x="20" y="64" width="69" height="31"/>
                     <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Cancel"/>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c9O-bv-7hY">
-                    <rect key="frame" x="327" y="67" width="67" height="31"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c9O-bv-7hY">
+                    <rect key="frame" x="340" y="64" width="54" height="31"/>
                     <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Next"/>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Apple ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8T0-Up-HYw">
+                    <rect key="frame" x="143" y="124" width="128" height="42"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in with your Apple ID to use iCloud and other Apple services." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wKs-g9-lPr">
+                    <rect key="frame" x="20" y="186" width="374" height="41"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-            <point key="canvasLocation" x="317" y="-1"/>
+            <constraints>
+                <constraint firstItem="8T0-Up-HYw" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="80" id="3gp-Mq-43U"/>
+                <constraint firstItem="K2S-Yk-fD1" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="7ka-C4-0cv"/>
+                <constraint firstItem="c9O-bv-7hY" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="N3C-tk-5kv"/>
+                <constraint firstItem="wKs-g9-lPr" firstAttribute="top" secondItem="8T0-Up-HYw" secondAttribute="bottom" constant="20" id="Qal-bn-S8e"/>
+                <constraint firstItem="K2S-Yk-fD1" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="SpK-rT-Y5u"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="c9O-bv-7hY" secondAttribute="trailing" constant="20" id="bf8-nn-Sjn"/>
+                <constraint firstAttribute="trailing" secondItem="wKs-g9-lPr" secondAttribute="trailing" constant="20" id="j4v-0U-QOH"/>
+                <constraint firstItem="8T0-Up-HYw" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="kCF-kI-9mj"/>
+                <constraint firstItem="wKs-g9-lPr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="rPQ-wB-L5d"/>
+            </constraints>
+            <point key="canvasLocation" x="315.94202898550725" y="-1.3392857142857142"/>
         </view>
     </objects>
     <resources>
