@@ -40,26 +40,52 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YND-wr-WDx">
+                    <rect key="frame" x="95" y="277" width="34.5" height="18.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6UE-pp-ChK">
+                    <rect key="frame" x="77" y="305.5" width="244" height="1"/>
+                    <color key="backgroundColor" systemColor="systemRedColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="oME-UK-Znh"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Apple ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="omw-q7-oI4">
+                    <rect key="frame" x="20" y="276" width="65" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="8T0-Up-HYw" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="80" id="3gp-Mq-43U"/>
                 <constraint firstItem="K2S-Yk-fD1" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="7ka-C4-0cv"/>
+                <constraint firstItem="YND-wr-WDx" firstAttribute="top" secondItem="wKs-g9-lPr" secondAttribute="bottom" constant="50" id="LyZ-jW-PgN"/>
                 <constraint firstItem="c9O-bv-7hY" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="N3C-tk-5kv"/>
                 <constraint firstItem="wKs-g9-lPr" firstAttribute="top" secondItem="8T0-Up-HYw" secondAttribute="bottom" constant="20" id="Qal-bn-S8e"/>
                 <constraint firstItem="K2S-Yk-fD1" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="SpK-rT-Y5u"/>
+                <constraint firstItem="6UE-pp-ChK" firstAttribute="top" secondItem="YND-wr-WDx" secondAttribute="bottom" constant="10" id="bDV-vd-lXN"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="c9O-bv-7hY" secondAttribute="trailing" constant="20" id="bf8-nn-Sjn"/>
+                <constraint firstItem="omw-q7-oI4" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="dcy-Qc-E50"/>
                 <constraint firstAttribute="trailing" secondItem="wKs-g9-lPr" secondAttribute="trailing" constant="20" id="j4v-0U-QOH"/>
                 <constraint firstItem="8T0-Up-HYw" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="kCF-kI-9mj"/>
+                <constraint firstItem="YND-wr-WDx" firstAttribute="centerY" secondItem="omw-q7-oI4" secondAttribute="centerY" id="qQH-aE-ViC"/>
                 <constraint firstItem="wKs-g9-lPr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="rPQ-wB-L5d"/>
+                <constraint firstItem="YND-wr-WDx" firstAttribute="leading" secondItem="omw-q7-oI4" secondAttribute="trailing" constant="10" id="vcw-m2-scr"/>
             </constraints>
-            <point key="canvasLocation" x="315.94202898550725" y="-1.3392857142857142"/>
+            <point key="canvasLocation" x="782.60869565217399" y="-34.151785714285715"/>
         </view>
     </objects>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
