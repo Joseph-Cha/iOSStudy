@@ -69,7 +69,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     // 테이블 뷰 셀을 클릭했을 때 동작 정의
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 1 && indexPath.row == 0 {
+        
+        // 버튼을 선택 후 음영이 사라지게 만들어 줌
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        if indexPath.section == 0 && indexPath.row == 0 {
+            
+            let myIdVC = MyIDViewController(nibName: "MyIDViewController", bundle: nil)
+            
+            self.present(myIdVC, animated: true, completion: nil)
+            
+        } else if indexPath.section == 1 && indexPath.row == 0 {
             if let generalVC = UIStoryboard(name: "GeneralViewController", bundle: nil).instantiateViewController(identifier: "GeneralViewController") as? GeneralViewController {
                 self.navigationController?.pushViewController(generalVC, animated: true)
             }
