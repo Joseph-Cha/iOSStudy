@@ -10,6 +10,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MyIDViewController" customModule="Settings_Clone_App" customModuleProvider="target">
             <connections>
+                <outlet property="CancelButton" destination="K2S-Yk-fD1" id="3Wa-Sg-hfA"/>
+                <outlet property="NextButton" destination="c9O-bv-7hY" id="coe-c6-OMP"/>
+                <outlet property="cancelButton" destination="K2S-Yk-fD1" id="qTq-VW-Bhq"/>
+                <outlet property="emailTextField" destination="YND-wr-WDx" id="dSX-8f-wEO"/>
+                <outlet property="nextButton" destination="c9O-bv-7hY" id="lFa-DL-DFE"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,9 +24,12 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K2S-Yk-fD1">
-                    <rect key="frame" x="20" y="64" width="69" height="31"/>
+                    <rect key="frame" x="20" y="64" width="68.5" height="31"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" title="Cancel"/>
+                    <connections>
+                        <action selector="doCancel:" destination="-1" eventType="touchUpInside" id="ccC-qN-apX"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c9O-bv-7hY">
                     <rect key="frame" x="340" y="64" width="54" height="31"/>
@@ -41,51 +49,110 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YND-wr-WDx">
-                    <rect key="frame" x="95" y="277" width="34.5" height="18.5"/>
+                    <rect key="frame" x="94.5" y="277" width="299.5" height="18.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6UE-pp-ChK">
-                    <rect key="frame" x="77" y="305.5" width="244" height="1"/>
-                    <color key="backgroundColor" systemColor="systemRedColor"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6UE-pp-ChK">
+                    <rect key="frame" x="0.0" y="305.5" width="414" height="1"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="oME-UK-Znh"/>
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Apple ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="omw-q7-oI4">
-                    <rect key="frame" x="20" y="276" width="65" height="21"/>
+                    <rect key="frame" x="20" y="276" width="64.5" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c0G-ZU-z4z">
+                    <rect key="frame" x="0.0" y="266" width="414" height="1"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="m6x-H9-QSZ"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TTc-1J-YtV">
+                    <rect key="frame" x="82" y="336.5" width="250.5" height="31"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Don't have an Apple ID or forgot it?"/>
+                </button>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="IdU-nO-9UK">
+                    <rect key="frame" x="30" y="387.5" width="354" height="50"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icloud" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="37o-ex-ZFE">
+                            <rect key="frame" x="0.0" y="1" width="64.5" height="46.5"/>
+                        </imageView>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="book" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="0KD-C5-c2m">
+                            <rect key="frame" x="72.5" y="1.5" width="64.5" height="47.5"/>
+                        </imageView>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="externaldrive" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Gsg-XX-fHC">
+                            <rect key="frame" x="145" y="1.5" width="64" height="46.5"/>
+                        </imageView>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="folder" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Yyn-Se-mcA">
+                            <rect key="frame" x="217" y="1" width="64.5" height="47.5"/>
+                        </imageView>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="face.smiling" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Hyz-Gb-XEx">
+                            <rect key="frame" x="289.5" y="0.5" width="64.5" height="49"/>
+                        </imageView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="37o-ex-ZFE" secondAttribute="bottom" id="2mN-Rv-YIW"/>
+                        <constraint firstAttribute="bottom" secondItem="Yyn-Se-mcA" secondAttribute="bottom" id="AKp-bi-snJ"/>
+                        <constraint firstItem="0KD-C5-c2m" firstAttribute="top" secondItem="IdU-nO-9UK" secondAttribute="top" id="Os7-ep-LQu"/>
+                        <constraint firstItem="37o-ex-ZFE" firstAttribute="top" secondItem="IdU-nO-9UK" secondAttribute="top" id="S4L-xw-UEQ"/>
+                        <constraint firstItem="Yyn-Se-mcA" firstAttribute="top" secondItem="IdU-nO-9UK" secondAttribute="top" id="Zoy-6z-7FX"/>
+                        <constraint firstItem="Gsg-XX-fHC" firstAttribute="top" secondItem="IdU-nO-9UK" secondAttribute="top" id="drD-66-OrB"/>
+                        <constraint firstAttribute="height" constant="50" id="gEn-H4-UAN"/>
+                        <constraint firstAttribute="bottom" secondItem="0KD-C5-c2m" secondAttribute="bottom" id="sUp-qI-qFJ"/>
+                        <constraint firstAttribute="bottom" secondItem="Gsg-XX-fHC" secondAttribute="bottom" id="tOO-wV-8V0"/>
+                        <constraint firstItem="Hyz-Gb-XEx" firstAttribute="top" secondItem="IdU-nO-9UK" secondAttribute="top" id="v8D-rk-UWN"/>
+                        <constraint firstAttribute="bottom" secondItem="Hyz-Gb-XEx" secondAttribute="bottom" id="xeB-ik-HnC"/>
+                    </constraints>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="c0G-ZU-z4z" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="2rL-G1-9ej"/>
                 <constraint firstItem="8T0-Up-HYw" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="80" id="3gp-Mq-43U"/>
+                <constraint firstItem="TTc-1J-YtV" firstAttribute="top" secondItem="6UE-pp-ChK" secondAttribute="bottom" constant="30" id="6cc-p0-f8e"/>
                 <constraint firstItem="K2S-Yk-fD1" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="7ka-C4-0cv"/>
+                <constraint firstItem="6UE-pp-ChK" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="7wg-Z0-7Ot"/>
+                <constraint firstItem="IdU-nO-9UK" firstAttribute="top" secondItem="TTc-1J-YtV" secondAttribute="bottom" constant="20" id="9yV-SK-8mc"/>
+                <constraint firstItem="TTc-1J-YtV" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Fvb-o0-Jen"/>
+                <constraint firstItem="IdU-nO-9UK" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="KRR-f0-dSj"/>
                 <constraint firstItem="YND-wr-WDx" firstAttribute="top" secondItem="wKs-g9-lPr" secondAttribute="bottom" constant="50" id="LyZ-jW-PgN"/>
                 <constraint firstItem="c9O-bv-7hY" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="N3C-tk-5kv"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="YND-wr-WDx" secondAttribute="trailing" constant="20" id="Nag-pv-9LB"/>
+                <constraint firstItem="IdU-nO-9UK" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="30" id="NjW-xf-QCh"/>
+                <constraint firstItem="YND-wr-WDx" firstAttribute="top" secondItem="c0G-ZU-z4z" secondAttribute="bottom" constant="10" id="QVd-cJ-gzB"/>
                 <constraint firstItem="wKs-g9-lPr" firstAttribute="top" secondItem="8T0-Up-HYw" secondAttribute="bottom" constant="20" id="Qal-bn-S8e"/>
                 <constraint firstItem="K2S-Yk-fD1" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="SpK-rT-Y5u"/>
+                <constraint firstAttribute="trailing" secondItem="c0G-ZU-z4z" secondAttribute="trailing" id="YNN-pG-mxA"/>
                 <constraint firstItem="6UE-pp-ChK" firstAttribute="top" secondItem="YND-wr-WDx" secondAttribute="bottom" constant="10" id="bDV-vd-lXN"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="c9O-bv-7hY" secondAttribute="trailing" constant="20" id="bf8-nn-Sjn"/>
                 <constraint firstItem="omw-q7-oI4" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="dcy-Qc-E50"/>
+                <constraint firstAttribute="trailing" secondItem="6UE-pp-ChK" secondAttribute="trailing" id="e2y-2g-sGk"/>
                 <constraint firstAttribute="trailing" secondItem="wKs-g9-lPr" secondAttribute="trailing" constant="20" id="j4v-0U-QOH"/>
                 <constraint firstItem="8T0-Up-HYw" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="kCF-kI-9mj"/>
                 <constraint firstItem="YND-wr-WDx" firstAttribute="centerY" secondItem="omw-q7-oI4" secondAttribute="centerY" id="qQH-aE-ViC"/>
                 <constraint firstItem="wKs-g9-lPr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="rPQ-wB-L5d"/>
                 <constraint firstItem="YND-wr-WDx" firstAttribute="leading" secondItem="omw-q7-oI4" secondAttribute="trailing" constant="10" id="vcw-m2-scr"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="IdU-nO-9UK" secondAttribute="trailing" constant="30" id="wIY-ui-gEx"/>
             </constraints>
-            <point key="canvasLocation" x="782.60869565217399" y="-34.151785714285715"/>
+            <point key="canvasLocation" x="-20" y="1"/>
         </view>
     </objects>
     <resources>
+        <image name="book" catalog="system" width="128" height="99"/>
+        <image name="externaldrive" catalog="system" width="128" height="88"/>
+        <image name="face.smiling" catalog="system" width="128" height="121"/>
+        <image name="folder" catalog="system" width="128" height="97"/>
+        <image name="icloud" catalog="system" width="128" height="88"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
