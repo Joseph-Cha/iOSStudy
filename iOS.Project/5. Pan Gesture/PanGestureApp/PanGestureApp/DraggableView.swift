@@ -9,6 +9,8 @@ import UIKit
 
 class DraggableView: UIView {
     
+    var dragType = DragType.none
+    
     init() {
         // frame: 기본 크기 설정
         super.init(frame: CGRect.zero)
@@ -35,8 +37,16 @@ class DraggableView: UIView {
             
             // 현재 view의 기준점을 center로 생각한다.
             var myPosition = self.center
-            myPosition.x += delta.x
-            myPosition.y += delta.y
+            
+            if dragType == .x {
+                myPosition.x += delta.x
+            } else if dragType == .y {
+                myPosition.y += delta.y
+            } else {
+                myPosition.x += delta.x
+                myPosition.y += delta.y
+            }
+            
             self.center = myPosition
             
             // 내가 움직인 만큼 이동을 끝낸 다음 pan을 초기화 해준다.
@@ -46,7 +56,18 @@ class DraggableView: UIView {
         // cancelled: 누르고 멀리 이동하는 등, 이동이 취소 되었을 때
         case .ended, .cancelled:
             print("ended, cancelled")
-        
+            // minX: 해당 view의 좌측 상단 값
+            // self.frame.minX < 0: 해당 view가 화면을 넘어가면
+            if self.frame.minX < 0 {
+                self.frame.origin.x = 0
+            }
+            if let hasSuperView = self.superview {
+                // maxX: 해당 view의 우측 상단 값
+                if self.frame.maxX > hasSuperView.frame.maxX {
+                    self.frame.origin.x = hasSuperView.frame.maxX - self.bounds.width
+                }
+            }
+
         default:
             break
         }
