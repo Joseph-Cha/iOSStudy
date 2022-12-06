@@ -9,6 +9,8 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var didShowOnBoardingView = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,13 +23,12 @@ class ViewController: UIViewController {
     // 따라서 화면에 그려지는 동작을 구현할 때는 이렇게 화면이 보여진 이후에 동작을 해야 문제가 발생하지 않는다.
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        let pageVC = OnBoardingPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
-        pageVC.modalPresentationStyle = .fullScreen
-        
-        self.present(pageVC, animated: true, completion: nil)
+        if didShowOnBoardingView == false {
+            didShowOnBoardingView = true
+            let pageVC = OnBoardingPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
+            pageVC.modalPresentationStyle = .fullScreen
+            
+            self.present(pageVC, animated: true, completion: nil)
+        }
     }
-
-
 }
-
