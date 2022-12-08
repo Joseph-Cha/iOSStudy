@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PhotosUI
 
 class ViewController: UIViewController {
 
@@ -32,7 +33,7 @@ class ViewController: UIViewController {
     }
     
     func makeNavigationItem() {
-        let photoItem = UIBarButtonItem(image: UIImage(systemName: "photo.on.rectangle"), style: .done, target: self, action: #selector(showGallery))
+        let photoItem = UIBarButtonItem(image: UIImage(systemName: "photo.on.rectangle"), style: .done, target: self, action: #selector(checkPermission))
         photoItem.tintColor = .black.withAlphaComponent(0.7)
         self.navigationItem.rightBarButtonItem = photoItem
         
@@ -41,7 +42,55 @@ class ViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = refreshItem
     }
     
+    @objc func checkPermission() {
+        
+        // authorized: 모두 허용
+        // limited: 일부 허용
+        if PHPhotoLibrary.authorizationStatus() == .authorized ||
+            PHPhotoLibrary.authorizationStatus() == .limited {
+            DispatchQueue.main.async {
+                // UI를 보여주는 것은 메인 쓰레드에서 동작을 해야 한다.
+                self.showGallery()
+            }
+            
+        // denied: 거절
+        } else if PHPhotoLibrary.authorizationStatus() == .denied {
+            DispatchQueue.main.async {
+                self.showAuthorizationDeniedAlert()
+            }
+            
+        // notDetermined: 한 번도 권한을 물어보지 않은 상태
+        } else if PHPhotoLibrary.authorizationStatus() == .notDetermined {
+            PHPhotoLibrary.requestAuthorization { status in
+                self.checkPermission()
+            }
+        }
+        
+    }
+    
+    func showAuthorizationDeniedAlert() {
+        let alert = UIAlertController(title: "포토라이브러리 접근 권한을 활성화 해주세요.", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "닫기", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "설정으로 가기", style: .default, handler: { action in
+            // 앱 설정 열기
+            guard let url = URL(string: UIApplication.openSettingsURLString) else {
+                return
+            }
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     @objc func showGallery() {
+        let library = PHPhotoLibrary.shared()
+        var configuration = PHPickerConfiguration(photoLibrary: library)
+        configuration.selectionLimit = 10
+        let picker = PHPickerViewController(configuration: configuration)
+        
+        picker.delegate = self
+        present(picker, animated: true, completion: nil)
         
     }
     
@@ -64,4 +113,14 @@ extension ViewController: UICollectionViewDataSource {
         
         return cell
     }
+}
+
+// 사진 선택(add) 후 콜백처리
+extension ViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        
+        self.dismiss(animated: true)
+    }
+    
+    
 }
