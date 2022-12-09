@@ -9,7 +9,9 @@ import UIKit
 import PhotosUI
 
 class ViewController: UIViewController {
-
+    
+    var fetchResults: PHFetchResult<PHAsset>?
+    
     @IBOutlet weak var photoCollectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,9 +29,7 @@ class ViewController: UIViewController {
         layout.minimumLineSpacing = 1
         
         photoCollectionView.collectionViewLayout = layout
-        
         photoCollectionView.dataSource = self
-        
     }
     
     func makeNavigationItem() {
@@ -95,7 +95,7 @@ class ViewController: UIViewController {
     }
     
     @objc func refresh() {
-        
+        self.photoCollectionView.reloadData()
     }
 
 
@@ -105,11 +105,14 @@ class ViewController: UIViewController {
 // 연결된 table view의 갯수 및 현재 cell에 대해서 정의해 주고 있다.
 extension ViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return self.fetchResults?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
+        if let asset = self.fetchResults?[indexPath.row] {
+            cell.loadImage(asset: asset)
+        }
         
         return cell
     }
@@ -119,8 +122,13 @@ extension ViewController: UICollectionViewDataSource {
 extension ViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         
+        let identifiers = results.map {
+             $0.assetIdentifier ?? ""
+        }
+        self.fetchResults = PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: nil)
+        // 갯수가 업데이트 됨
+        self.photoCollectionView.reloadData()
+        
         self.dismiss(animated: true)
     }
-    
-    
 }
