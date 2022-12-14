@@ -21,6 +21,7 @@ struct Result: Codable {
     let longDescription: String?
     let trackPrice: Double
     let currency: String
+    let releaseDate: String
     
     // artworkUrl100 대신 image를 쓰고 싶을 때
     enum CodingKeys: String, CodingKey {
@@ -31,6 +32,7 @@ struct Result: Codable {
         case longDescription
         case trackPrice
         case currency
+        case releaseDate
         
     }
 }

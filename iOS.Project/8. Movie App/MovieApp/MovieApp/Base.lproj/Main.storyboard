@@ -53,7 +53,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="price" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fAQ-4x-Dbd">
-                                                    <rect key="frame" x="100" y="161" width="284" height="21"/>
+                                                    <rect key="frame" x="100" y="156" width="284" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -71,7 +71,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="tI7-2m-hcR" secondAttribute="bottom" constant="5" id="XSO-S6-DPY"/>
                                                 <constraint firstAttribute="trailing" secondItem="Br7-qZ-n47" secondAttribute="trailing" constant="20" id="Z0e-Pl-bzd"/>
                                                 <constraint firstAttribute="trailing" secondItem="42k-a3-rce" secondAttribute="trailing" constant="20" id="cgC-Yd-SFS"/>
-                                                <constraint firstAttribute="bottom" secondItem="fAQ-4x-Dbd" secondAttribute="bottom" constant="5" id="enZ-O0-3K5"/>
+                                                <constraint firstAttribute="bottom" secondItem="fAQ-4x-Dbd" secondAttribute="bottom" constant="10" id="enZ-O0-3K5"/>
                                                 <constraint firstItem="42k-a3-rce" firstAttribute="leading" secondItem="tI7-2m-hcR" secondAttribute="trailing" constant="5" id="kDl-FD-IUf"/>
                                                 <constraint firstItem="42k-a3-rce" firstAttribute="top" secondItem="eQt-kC-4Ht" secondAttribute="top" constant="5" id="qiV-K0-59q"/>
                                                 <constraint firstItem="tI7-2m-hcR" firstAttribute="leading" secondItem="eQt-kC-4Ht" secondAttribute="leading" constant="5" id="rGS-8D-3rm"/>

@@ -23,6 +23,26 @@ class ViewController: UIViewController {
         requestMovieAPI()
     }
     
+    func loadImage(urlString: String, complection: @escaping (UIImage?) -> Void)  {
+        let sessionConfig = URLSessionConfiguration.default
+        let session = URLSession(configuration: sessionConfig)
+        
+        if let hasURL = URL(string: urlString) {
+            var request = URLRequest(url: hasURL)
+            request.httpMethod = "GET"
+            
+            session.dataTask(with: request) { data, response, error in
+                print((response as! HTTPURLResponse).statusCode)
+                if let hasData = data {
+                    complection(UIImage(data: hasData))
+                    return
+                }
+            }.resume()
+        }
+        
+        complection(nil)
+    }
+    
     // network
     func requestMovieAPI() {
         let sessionConfig = URLSessionConfiguration.default
@@ -73,6 +93,15 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         return self.movieModel?.resultCount ?? 0
     }
     
+    // cell의 높이 지정 -> 콘텐츠의 내용 만큼의 높이를 지정
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
         cell.titleLabel.text = self.movieModel?.results[indexPath.row].trackName
@@ -81,10 +110,28 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         let currency = self.movieModel?.results[indexPath.row].currency ?? ""
         let price = self.movieModel?.results[indexPath.row].trackPrice.description ?? ""
         cell.priceLabel.text = currency + " " + price
+        
+        if let hasURL = self.movieModel?.results[indexPath.row].image {
+            self.loadImage(urlString: hasURL) { image in
+                DispatchQueue.main.async {
+                    cell.movieImageView.image = image
+                }
+            }
+        }
+        
+        if let dateString = self.movieModel?.results[indexPath.row].releaseDate {
+            let formatter = ISO8601DateFormatter()
+            if let iosDate = formatter.date(from: dateString) {
+                let myFormatter = DateFormatter()
+                myFormatter.dateFormat = "yyyy년 MM월 dd일"
+                cell.dateLabel.text = myFormatter.string(from: iosDate)
+            }
+        }
+        
+
+        
         return cell
     }
-    
-    
 }
 
 extension ViewController: UISearchBarDelegate {
