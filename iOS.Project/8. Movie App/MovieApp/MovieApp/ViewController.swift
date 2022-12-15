@@ -10,6 +10,7 @@ import UIKit
 class ViewController: UIViewController {
     
     var movieModel: MovieModel?
+    var term = ""
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var movieTableView: UITableView!
@@ -19,8 +20,6 @@ class ViewController: UIViewController {
         movieTableView.delegate = self
         movieTableView.dataSource = self
         searchBar.delegate = self
-        
-        requestMovieAPI()
     }
     
     func loadImage(urlString: String, complection: @escaping (UIImage?) -> Void)  {
@@ -49,7 +48,7 @@ class ViewController: UIViewController {
         let session = URLSession(configuration: sessionConfig)
         
         var components = URLComponents(string: "https://itunes.apple.com/search")
-        let term = URLQueryItem(name: "term", value: "marvel")
+        let term = URLQueryItem(name: "term", value: term)
         let media = URLQueryItem(name: "media", value: "movie")
         
         components?.queryItems = [term, media]
@@ -84,7 +83,6 @@ class ViewController: UIViewController {
         session.finishTasksAndInvalidate()
         
     }
-
 
 }
 
@@ -127,16 +125,27 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.dateLabel.text = myFormatter.string(from: iosDate)
             }
         }
-        
-
-        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailVC = UIStoryboard(name: "DetailViewController", bundle: nil).instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        detailVC.movieResult = self.movieModel?.results[indexPath.row]
+        detailVC.modalPresentationStyle = .fullScreen
+        self.present(detailVC, animated: true)
     }
 }
 
 extension ViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let hasText = searchBar.text else {
+            return
+        }
         
+        term = hasText
+        requestMovieAPI()
+        self.view.endEditing(true)
     }
 }
-
