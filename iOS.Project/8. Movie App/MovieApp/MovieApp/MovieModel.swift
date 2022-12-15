@@ -10,10 +10,10 @@ import Foundation
 // Codable == serializable과 동일
 struct MovieModel: Codable {
     let resultCount: Int
-    let results: [Result]
+    let results: [MovieResult]
 }
 
-struct Result: Codable {
+struct MovieResult: Codable {
     let trackName: String?
     let previewUrl: String?
     let image: String?

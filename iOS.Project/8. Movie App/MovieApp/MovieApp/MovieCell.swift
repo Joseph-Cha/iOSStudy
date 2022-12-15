@@ -1,10 +1,3 @@
-//
-//  MovieCell.swift
-//  MovieApp
-//
-//  Created by 차동훈 on 2022/12/12.
-//
-
 import Foundation
 import UIKit
 
