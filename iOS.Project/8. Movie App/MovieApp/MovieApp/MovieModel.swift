@@ -19,9 +19,9 @@ struct MovieResult: Codable {
     let image: String?
     let shortDescription: String?
     let longDescription: String?
-    let trackPrice: Double
-    let currency: String
-    let releaseDate: String
+    let trackPrice: Double?
+    let currency: String?
+    let releaseDate: String?
     
     // artworkUrl100 대신 image를 쓰고 싶을 때
     enum CodingKeys: String, CodingKey {
