@@ -11,6 +11,8 @@ class ViewController: UIViewController {
     
     var movieModel: MovieModel?
     var term = ""
+    
+    var networkLayer = NetworkLayer()
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var movieTableView: UITableView!
@@ -23,47 +25,21 @@ class ViewController: UIViewController {
     }
     
     func loadImage(urlString: String, complection: @escaping (UIImage?) -> Void)  {
-        let sessionConfig = URLSessionConfiguration.default
-        let session = URLSession(configuration: sessionConfig)
-        
-        if let hasURL = URL(string: urlString) {
-            var request = URLRequest(url: hasURL)
-            request.httpMethod = "GET"
-            
-            session.dataTask(with: request) { data, response, error in
-                print((response as! HTTPURLResponse).statusCode)
-                if let hasData = data {
-                    complection(UIImage(data: hasData))
-                    return
-                }
-            }.resume()
+        networkLayer.request(type: .justURL(urlString: urlString)) { data, response, error in
+            if let hasData = data {
+                complection(UIImage(data: hasData))
+                return
+            }
+            complection(nil)
         }
-        
-        complection(nil)
     }
     
-    // network
     func requestMovieAPI() {
-        let sessionConfig = URLSessionConfiguration.default
-        let session = URLSession(configuration: sessionConfig)
-        
-        var components = URLComponents(string: "https://itunes.apple.com/search")
         let term = URLQueryItem(name: "term", value: term)
         let media = URLQueryItem(name: "media", value: "movie")
+        let querys = [term, media]
         
-        components?.queryItems = [term, media]
-        
-        guard let url = components?.url else {
-            return
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        
-        session.dataTask(with: request) { data, response, error in
-            print((response as! HTTPURLResponse).statusCode)
-            
-            // data를 디코딩
+        networkLayer.request(type: .searchMovie(querys: querys)) { data, response, error in
             if let hasData = data {
                 do {
                     self.movieModel = try JSONDecoder().decode(MovieModel.self, from: hasData)
@@ -78,12 +54,8 @@ class ViewController: UIViewController {
                     print(error)
                 }
             }
-            
-        }.resume()
-        session.finishTasksAndInvalidate()
-        
+        }
     }
-
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
@@ -106,7 +78,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         cell.descriptionLabel.text = self.movieModel?.results[indexPath.row].shortDescription
         
         let currency = self.movieModel?.results[indexPath.row].currency ?? ""
-        let price = self.movieModel?.results[indexPath.row].trackPrice.description ?? ""
+        let price = self.movieModel?.results[indexPath.row].trackPrice?.description ?? ""
         cell.priceLabel.text = currency + " " + price
         
         if let hasURL = self.movieModel?.results[indexPath.row].image {
