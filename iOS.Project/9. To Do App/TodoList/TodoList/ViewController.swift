@@ -8,6 +8,25 @@
 import UIKit
 import CoreData
 
+enum PriorityLevel: Int64 {
+    case level1
+    case level2
+    case level3
+}
+
+extension PriorityLevel {
+    var color: UIColor {
+        switch self {
+        case .level1:
+            return .green
+        case .level2:
+            return .orange
+        case .level3:
+            return .red
+        }
+    }
+}
+
 class ViewController: UIViewController {
 
     @IBOutlet weak var todoTableView: UITableView!
@@ -74,13 +93,20 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             cell.dateLabel.text = ""
         }
+        // 로컬 db에 있는 color 값을 가지고 온다.
+        let priority = todoList[indexPath.row].priorityLevel
         
+        let priorityColor = PriorityLevel(rawValue: priority)?.color
+        cell.prioirtyView.backgroundColor = priorityColor
+        cell.prioirtyView.layer.cornerRadius = cell.prioirtyView.bounds.height / 2
+
         return cell
     }
 }
 
 extension ViewController: TodoDetailViewControllerDelegate {
     func didFinishSaveData() {
+        self.fetchDate()
         self.todoTableView.reloadData()
     }
 }
