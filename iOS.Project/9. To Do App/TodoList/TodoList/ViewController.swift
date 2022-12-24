@@ -102,6 +102,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
         return cell
     }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
 }
 
 extension ViewController: TodoDetailViewControllerDelegate {
