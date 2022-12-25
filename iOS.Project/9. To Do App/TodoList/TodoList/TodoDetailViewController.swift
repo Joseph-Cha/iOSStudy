@@ -20,10 +20,23 @@ class TodoDetailViewController: UIViewController {
     @IBOutlet weak var lowButton: UIButton!
     @IBOutlet weak var titleTextField: UITextField!
     
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var selectedTodoList: TodoList?
     var priority: PriorityLevel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let hasData = selectedTodoList {
+            titleTextField.text = hasData.title
+            priority = PriorityLevel(rawValue: hasData.priorityLevel)
+            makePriorityButtonDesign()
+        }
+
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -34,30 +47,40 @@ class TodoDetailViewController: UIViewController {
     }
     
     @IBAction func setPriority(_ sender: UIButton) {
+
+        switch sender.tag {
+        case 1:
+            priority = .level1
+        case 2:
+            priority = .level2
+        case 3:
+            priority = .level3
+        default:
+            break
+        }
+        makePriorityButtonDesign()
+    }
+    
+    func makePriorityButtonDesign() {
+        
         lowButton.backgroundColor = .clear
         normalButton.backgroundColor = .clear
         highButton.backgroundColor = .clear
         
-        switch sender.tag {
-        case 1:
-            priority = .level1
+        switch self.priority {
+        case .level1:
             lowButton.backgroundColor = priority?.color
-            break
-        case 2:
-            priority = .level2
+        case .level2:
             normalButton.backgroundColor = priority?.color
-            break
-        case 3:
-            priority = .level3
+        case .level3:
             highButton.backgroundColor = priority?.color
-            break
         default:
             break
         }
+        
     }
     
     @IBAction func saveTodo(_ sender: Any) {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
         guard let entityDescription = NSEntityDescription.entity(forEntityName: "TodoList", in: context) else { return
         }
@@ -76,5 +99,30 @@ class TodoDetailViewController: UIViewController {
         
         delegate?.didFinishSaveData()
         self.dismiss(animated: true)
+    }
+    
+    func updateTodo() {
+        guard let hasData = selectedTodoList else {
+            return
+        }
+        
+        let fectchRequest: NSFetchRequest<TodoList> = TodoList.fetchRequest()
+        
+        guard let hasUUID = hasData.uuid else {
+            return
+        }
+        
+        // 선택한 uuid의 값만 가지고 올 수 있따.
+        fectchRequest.predicate = NSPredicate(format: "uuid = %@", hasUUID as CVarArg)
+        
+        do {
+            let loadedData = try context.fetch(fectchRequest)
+            loadedData.first?.title = titleTextField.text
+            loadedData.first?.date = Date()
+            loadedData.first?.priorityLevel = self.priority?.rawValue ?? PriorityLevel.level1.rawValue
+        } catch {
+            
+        }
+        
     }
 }

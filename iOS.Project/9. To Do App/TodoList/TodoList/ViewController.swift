@@ -105,7 +105,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let detailVC = TodoDetailViewController.init(nibName: "TodoDetailViewController", bundle: nil)
+        detailVC.delegate = self
+        detailVC.selectedTodoList = todoList[indexPath.row]
+        self.present(detailVC, animated: true)
     }
 }
 
