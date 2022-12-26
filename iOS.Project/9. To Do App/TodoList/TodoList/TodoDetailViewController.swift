@@ -20,7 +20,12 @@ class TodoDetailViewController: UIViewController {
     @IBOutlet weak var lowButton: UIButton!
     @IBOutlet weak var titleTextField: UITextField!
     
+    @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var saveButton: UIButton!
+    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
+
     var selectedTodoList: TodoList?
     var priority: PriorityLevel?
     
@@ -34,6 +39,11 @@ class TodoDetailViewController: UIViewController {
             titleTextField.text = hasData.title
             priority = PriorityLevel(rawValue: hasData.priorityLevel)
             makePriorityButtonDesign()
+            deleteButton.isHidden = false
+            saveButton.setTitle("update", for: .normal)
+        } else {
+            deleteButton.isHidden = true
+            saveButton.setTitle("save", for: .normal)
         }
 
         
@@ -82,10 +92,23 @@ class TodoDetailViewController: UIViewController {
     
     @IBAction func saveTodo(_ sender: Any) {
 
-        guard let entityDescription = NSEntityDescription.entity(forEntityName: "TodoList", in: context) else { return
+        if selectedTodoList != nil {
+            updateTodo()
+        } else {
+            saveTodo()
         }
         
-        guard let object = NSManagedObject(entity: entityDescription, insertInto: context) as? TodoList else { return
+        delegate?.didFinishSaveData()
+        self.dismiss(animated: true)
+    }
+    
+    func saveTodo() {
+        guard let entityDescription = NSEntityDescription.entity(forEntityName: "TodoList", in: context) else {
+            return
+        }
+        
+        guard let object = NSManagedObject(entity: entityDescription, insertInto: context) as? TodoList else {
+            return
         }
         
         object.title = titleTextField.text
@@ -96,9 +119,6 @@ class TodoDetailViewController: UIViewController {
         
         let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
         appDelegate.saveContext()
-        
-        delegate?.didFinishSaveData()
-        self.dismiss(animated: true)
     }
     
     func updateTodo() {
@@ -120,9 +140,40 @@ class TodoDetailViewController: UIViewController {
             loadedData.first?.title = titleTextField.text
             loadedData.first?.date = Date()
             loadedData.first?.priorityLevel = self.priority?.rawValue ?? PriorityLevel.level1.rawValue
-        } catch {
+            appDelegate.saveContext()
             
+        } catch {
+            print(error)
+        }
+    }
+    
+    @IBAction func deleteTod(_ sender: UIButton) {
+        guard let hasData = selectedTodoList else {
+            return
         }
         
+        let fectchRequest: NSFetchRequest<TodoList> = TodoList.fetchRequest()
+        
+        guard let hasUUID = hasData.uuid else {
+            return
+        }
+        
+        // 선택한 uuid의 값만 가지고 올 수 있따.
+        fectchRequest.predicate = NSPredicate(format: "uuid = %@", hasUUID as CVarArg)
+        
+        do {
+            let loadedData = try context.fetch(fectchRequest)
+            if let loadedFirstData = loadedData.first {
+                context.delete(loadedFirstData)
+                appDelegate.saveContext()
+            }
+            
+        } catch {
+            print(error)
+        }
+        
+        
+        delegate?.didFinishSaveData()
+        self.dismiss(animated: true)
     }
 }
