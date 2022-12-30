@@ -471,3 +471,41 @@ class ViewController: UIViewController {
     }
 }
 ```
+
+## 4. Settings Clone
+
+<img src="./resources/4.SettingsClone.gif" width="30%" height="30%"/>
+
+model class를 기반으로 table view를 구성합니다.
+
+### table cell 선택 시 원하는 view controller 등장시켰던 방법
+``` swift 
+// 현재 테이블에서 선택된 열(cell) 데이터
+func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+    if indexPath.section == 0 {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileViewCell", for: indexPath) as! ProfileViewCell
+        
+        // indexPath.section: 현재 세션 번호
+        // indexPath.row: 현재 세션에서 열의 번호
+        cell.topTitle.text = settingModel[indexPath.section][indexPath.row].menuIttile
+        cell.profileImageView.image = UIImage(systemName: settingModel[indexPath.section][indexPath.row].leftImageName)
+        cell.bottomDescription.text = settingModel[indexPath.section][indexPath.row].subTitle
+        
+        return cell
+    }
+    
+    let cell = tableView.dequeueReusableCell(withIdentifier: "MenuViewCell", for: indexPath) as! MenuViewCell
+    
+    cell.leftImageView.image = UIImage(systemName: settingModel[indexPath.section][indexPath.row].leftImageName)
+    cell.leftImageView.tintColor = .red
+    cell.middleTitle.text = settingModel[indexPath.section][indexPath.row].menuIttile
+    cell.rightImageView.image = UIImage(systemName: settingModel[indexPath.section][indexPath.row].rightImageName ?? "")
+    
+    return cell
+}
+```
+
+table view의 현재 세션 > 셀을 토대로 보여줘야 하는 view controller 등장시키는 방식으로 진행함.\
+-> 위 방법대로 진행되면 보여줘야 하는 셀이 하드코딩 되어 있기 때문에 좋은 방법으로 보여지지는 않습니다.\
+-> 현재 선택한 cell의 id 및 view controller를 맵핑하는 방식으로 수정하면 조금 더 깔끔한 구현이 가능할 것 같습니다.
