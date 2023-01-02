@@ -776,3 +776,139 @@ extension OnBoardingPageViewController: UIPageViewControllerDelegate {
 }
 
 ```
+
+## 7. Photo Gallery
+
+<img src="./resources/7.PhotoGallery.gif" width="30%" height="30%"/>
+
+### 7.1 갤러리 접근 권한 확인 방법
+
+``` swift
+@objc func checkPermission() {
+    // authorized: 모두 허용
+    // limited: 일부 허용
+    if PHPhotoLibrary.authorizationStatus() == .authorized ||
+        PHPhotoLibrary.authorizationStatus() == .limited {
+        DispatchQueue.main.async {
+            // UI를 보여주는 것은 메인 쓰레드에서 동작을 해야 한다.
+            self.showGallery()
+        }
+        
+    // denied: 거절
+    } else if PHPhotoLibrary.authorizationStatus() == .denied {
+        DispatchQueue.main.async {
+            self.showAuthorizationDeniedAlert()
+        }
+        
+    // notDetermined: 한 번도 권한을 물어보지 않은 상태
+    } else if PHPhotoLibrary.authorizationStatus() == .notDetermined {
+        PHPhotoLibrary.requestAuthorization { status in
+            self.checkPermission()
+        }
+    }
+}
+
+func showAuthorizationDeniedAlert() {
+    let alert = UIAlertController(title: "포토라이브러리 접근 권한을 활성화 해주세요.", message: nil, preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: "닫기", style: .cancel, handler: nil))
+    alert.addAction(UIAlertAction(title: "설정으로 가기", style: .default, handler: { action in
+        // 앱 설정 열기
+        guard let url = URL(string: UIApplication.openSettingsURLString) else {
+            return
+        }
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }))
+    self.present(alert, animated: true, completion: nil)
+}
+
+@objc func showGallery() {
+    let library = PHPhotoLibrary.shared()
+    var configuration = PHPickerConfiguration(photoLibrary: library)
+    configuration.selectionLimit = 10
+    let picker = PHPickerViewController(configuration: configuration)
+    
+    picker.delegate = self
+    present(picker, animated: true, completion: nil)
+}
+
+@objc func refresh() {
+    self.photoCollectionView.reloadData()
+}
+```
+
+### 7.2 갤러리에서 선택한 이미지 불러오기
+``` swift
+class ViewController: UIViewController {
+    var fetchResults: PHFetchResult<PHAsset>?
+}
+
+// table view이 기본 형태
+// 연결된 table view의 갯수 및 현재 cell에 대해서 정의해 주고 있다.
+extension ViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.fetchResults?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
+        if let asset = self.fetchResults?[indexPath.row] {
+            cell.loadImage(asset: asset)
+        }
+        
+        return cell
+    }
+}
+
+// 사진 선택(add) 후 콜백처리
+extension ViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        
+        let identifiers = results.map {
+             $0.assetIdentifier ?? ""
+        }
+        self.fetchResults = PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: nil)
+        // 갯수가 업데이트 됨
+        self.photoCollectionView.reloadData()
+        
+        self.dismiss(animated: true)
+    }
+}
+
+class PhotoCell: UICollectionViewCell {
+    
+    @IBOutlet weak var photoImageView: UIImageView! {
+        didSet {
+            photoImageView.contentMode = .scaleAspectFill
+        }
+    }
+    
+    func loadImage(asset: PHAsset) {
+        let imageManager = PHImageManager()
+        let scale = UIScreen.main.scale
+        // scale을 곱하는 이유 -> 핸드폰 해상도와 맞추기 위해서
+        let imageSize = CGSize(width: 150 * scale, height: 150 * scale)
+        
+        let options = PHImageRequestOptions()
+        // .highQualityFormat: 이미지를 요청할 때 고화질로 요청
+        // .fastFormat: 이미지를 요청할 때 저화질로 요청
+        // .opportunistic: 저화질 고화질 모두 요청
+        options.deliveryMode = .opportunistic
+        
+        self.photoImageView.image = nil
+        
+        imageManager.requestImage(for: asset, targetSize: imageSize, contentMode: .aspectFill, options: options) { image, info in
+            
+            if (info?[PHImageResultIsDegradedKey] as? Bool) == true {
+                // 저화질
+            } else {
+                // 고화질
+            }
+            self.photoImageView.image = image
+            
+        }
+    }
+}
+
+```
