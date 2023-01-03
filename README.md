@@ -777,7 +777,7 @@ extension OnBoardingPageViewController: UIPageViewControllerDelegate {
 
 ```
 
-## 7. Photo Gallery
+## 7. Photo Gallery App
 
 <img src="./resources/7.PhotoGallery.gif" width="30%" height="30%"/>
 
@@ -911,4 +911,163 @@ class PhotoCell: UICollectionViewCell {
     }
 }
 
+```
+
+## 8. Movie App
+
+| <img src="./resources/8.MovieApp_1.gif" width="30%" height="30%"/> | <img src="./resources/8.MovieApp_2.gif" width="30%" height="30%"/> | <img src="./resources/8.MovieApp_3.gif" width="30%" height="30%"/> |
+
+### 8.1 HTTP Request
+
+``` swift
+import Foundation
+
+enum MovieAPIType {
+    case justURL(urlString: String)
+    case searchMovie(querys: [URLQueryItem])
+}
+
+enum MovieAPIError: Error {
+    case badRUL
+}
+
+class NetworkLayer {
+    
+    // only url
+    // url + param
+    
+    typealias NetworkComplection = (_ data: Data?, _ response: URLResponse?, _ error: Error?) -> Void
+    
+    func request(type: MovieAPIType, complection: @escaping NetworkComplection) {
+        let sessionConfig = URLSessionConfiguration.default
+        let session = URLSession(configuration: sessionConfig)
+        
+        do {
+            let request = try buildRequest(type: type)
+            
+            session.dataTask(with: request) { data, response, error in
+                print((response as! HTTPURLResponse).statusCode)
+                complection(data, response, error)
+            }.resume()
+            session.finishTasksAndInvalidate()
+            
+        } catch {
+            print(error)
+        }
+    }
+    
+    private func buildRequest(type: MovieAPIType) throws -> URLRequest {
+        switch type {
+        case .justURL(urlString: let urlString):
+            guard let hasURL = URL(string: urlString) else {
+                throw MovieAPIError.badRUL
+            }
+            
+            var request = URLRequest(url: hasURL)
+            request.httpMethod = "GET"
+            
+            return request
+            
+        case .searchMovie(querys: let querys):
+            var components = URLComponents(string: "https://itunes.apple.com/search")
+            components?.queryItems = querys
+            guard let hasUrl = components?.url else {
+                throw MovieAPIError.badRUL
+            }
+            
+            var request = URLRequest(url: hasUrl)
+            request.httpMethod = "GET"
+            
+            return request
+        }
+    }
+}
+
+```
+
+### 8.2 Data Handling
+
+``` swift
+class ViewController: UIViewController {
+    
+    var movieModel: MovieModel?
+    var term = ""
+    
+    var networkLayer = NetworkLayer()
+
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var movieTableView: UITableView!
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        movieTableView.delegate = self
+        movieTableView.dataSource = self
+        searchBar.delegate = self
+    }
+    
+    func loadImage(urlString: String, complection: @escaping (UIImage?) -> Void)  {
+        networkLayer.request(type: .justURL(urlString: urlString)) { data, response, error in
+            if let hasData = data {
+                complection(UIImage(data: hasData))
+                return
+            }
+            complection(nil)
+        }
+    }
+    
+    func requestMovieAPI() {
+        let term = URLQueryItem(name: "term", value: term)
+        let media = URLQueryItem(name: "media", value: "movie")
+        let querys = [term, media]
+        
+        networkLayer.request(type: .searchMovie(querys: querys)) { data, response, error in
+            if let hasData = data {
+                do {
+                    self.movieModel = try JSONDecoder().decode(MovieModel.self, from: hasData)
+                    print(self.movieModel ?? "no data")
+                    
+                    DispatchQueue.main.async {
+                        // 데이터를 갱신
+                        self.movieTableView.reloadData()
+                    }
+                    
+                } catch {
+                    print(error)
+                }
+            }
+        }
+    }
+}
+
+import Foundation
+
+// Codable == serializable과 동일
+struct MovieModel: Codable {
+    let resultCount: Int
+    let results: [MovieResult]
+}
+
+struct MovieResult: Codable {
+    let trackName: String?
+    let previewUrl: String?
+    let image: String?
+    let shortDescription: String?
+    let longDescription: String?
+    let trackPrice: Double?
+    let currency: String?
+    let releaseDate: String?
+    
+    // artworkUrl100 대신 image를 쓰고 싶을 때
+    enum CodingKeys: String, CodingKey {
+        case image = "artworkUrl100"
+        case trackName
+        case previewUrl
+        case shortDescription
+        case longDescription
+        case trackPrice
+        case currency
+        case releaseDate
+        
+    }
+}
 ```
