@@ -1071,3 +1071,132 @@ struct MovieResult: Codable {
     }
 }
 ```
+
+## 9. Todo App
+
+<img src="./resources/9.TodoApp.gif" width="30%" height="30%"/>
+
+### 9.1 Create Core Data
+
+``` swift
+func saveTodo() {
+    guard let entityDescription = NSEntityDescription.entity(forEntityName: "TodoList", in: context) else {
+        return
+    }
+    
+    guard let object = NSManagedObject(entity: entityDescription, insertInto: context) as? TodoList else {
+        return
+    }
+    
+    object.title = titleTextField.text
+    object.date = Date()
+    object.uuid = UUID()
+    
+    object.priorityLevel = priority?.rawValue ?? PriorityLevel.level1.rawValue
+    
+    let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
+    appDelegate.saveContext()
+}
+```
+
+### 9.2 Read Core Data 
+
+``` swift
+func fetchDate() {
+    let fetchRequest: NSFetchRequest<TodoList> = TodoList.fetchRequest()
+    let context = appdelegate.persistentContainer.viewContext
+    
+    do {
+        self.todoList = try context.fetch(fetchRequest)
+        
+    } catch {
+        print(error)
+    }
+}
+
+// table view
+func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "TodoCell", for: indexPath) as! TodoCelll
+    cell.topTitleLabel.text = todoList[indexPath.row].title
+    if let hasDate = todoList[indexPath.row].date {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM-dd hh:mm:ss"
+        let dateString = formatter.string(from: hasDate)
+        
+        cell.dateLabel.text = dateString
+    } else {
+        cell.dateLabel.text = ""
+    }
+    // 로컬 db에 있는 color 값을 가지고 온다.
+    let priority = todoList[indexPath.row].priorityLevel
+    
+    let priorityColor = PriorityLevel(rawValue: priority)?.color
+    cell.prioirtyView.backgroundColor = priorityColor
+    cell.prioirtyView.layer.cornerRadius = cell.prioirtyView.bounds.height / 2
+
+    return cell
+}
+```
+### 9.3 Update Core Data 
+
+``` swift
+func updateTodo() {
+    guard let hasData = selectedTodoList else {
+        return
+    }
+    
+    let fectchRequest: NSFetchRequest<TodoList> = TodoList.fetchRequest()
+    
+    guard let hasUUID = hasData.uuid else {
+        return
+    }
+    
+    // 선택한 uuid의 값만 가지고 올 수 있따.
+    fectchRequest.predicate = NSPredicate(format: "uuid = %@", hasUUID as CVarArg)
+    
+    do {
+        let loadedData = try context.fetch(fectchRequest)
+        loadedData.first?.title = titleTextField.text
+        loadedData.first?.date = Date()
+        loadedData.first?.priorityLevel = self.priority?.rawValue ?? PriorityLevel.level1.rawValue
+        appDelegate.saveContext()
+        
+    } catch {
+        print(error)
+    }
+}
+```
+
+### 9.4 Delete Core Data 
+
+``` swift
+    @IBAction func deleteTod(_ sender: UIButton) {
+        guard let hasData = selectedTodoList else {
+            return
+        }
+        
+        let fectchRequest: NSFetchRequest<TodoList> = TodoList.fetchRequest()
+        
+        guard let hasUUID = hasData.uuid else {
+            return
+        }
+        
+        // 선택한 uuid의 값만 가지고 올 수 있따.
+        fectchRequest.predicate = NSPredicate(format: "uuid = %@", hasUUID as CVarArg)
+        
+        do {
+            let loadedData = try context.fetch(fectchRequest)
+            if let loadedFirstData = loadedData.first {
+                context.delete(loadedFirstData)
+                appDelegate.saveContext()
+            }
+            
+        } catch {
+            print(error)
+        }
+        
+        
+        delegate?.didFinishSaveData()
+        self.dismiss(animated: true)
+    }
+```
