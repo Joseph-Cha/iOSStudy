@@ -1170,33 +1170,33 @@ func updateTodo() {
 ### 9.4 Delete Core Data 
 
 ``` swift
-    @IBAction func deleteTod(_ sender: UIButton) {
-        guard let hasData = selectedTodoList else {
-            return
-        }
-        
-        let fectchRequest: NSFetchRequest<TodoList> = TodoList.fetchRequest()
-        
-        guard let hasUUID = hasData.uuid else {
-            return
-        }
-        
-        // 선택한 uuid의 값만 가지고 올 수 있따.
-        fectchRequest.predicate = NSPredicate(format: "uuid = %@", hasUUID as CVarArg)
-        
-        do {
-            let loadedData = try context.fetch(fectchRequest)
-            if let loadedFirstData = loadedData.first {
-                context.delete(loadedFirstData)
-                appDelegate.saveContext()
-            }
-            
-        } catch {
-            print(error)
-        }
-        
-        
-        delegate?.didFinishSaveData()
-        self.dismiss(animated: true)
+@IBAction func deleteTod(_ sender: UIButton) {
+    guard let hasData = selectedTodoList else {
+        return
     }
+    
+    let fectchRequest: NSFetchRequest<TodoList> = TodoList.fetchRequest()
+    
+    guard let hasUUID = hasData.uuid else {
+        return
+    }
+    
+    // 선택한 uuid의 값만 가지고 올 수 있따.
+    fectchRequest.predicate = NSPredicate(format: "uuid = %@", hasUUID as CVarArg)
+    
+    do {
+        let loadedData = try context.fetch(fectchRequest)
+        if let loadedFirstData = loadedData.first {
+            context.delete(loadedFirstData)
+            appDelegate.saveContext()
+        }
+        
+    } catch {
+        print(error)
+    }
+    
+    
+    delegate?.didFinishSaveData()
+    self.dismiss(animated: true)
+}
 ```
